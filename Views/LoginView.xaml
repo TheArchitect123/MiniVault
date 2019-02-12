@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<reactive:ReactiveContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Cross.DataVault.Views.LoginView"
+             xmlns:reactive="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+               xmlns:ViewModels="clr-namespace:Cross.DataVault.ViewModels"
+                              x:TypeArguments="ViewModels:LoginViewModel"
+             xmlns:CUST_Controls="clr-namespace:Cross.DataVault.Controls" 
+                              BackgroundColor="White">
+    <RelativeLayout x:Name="ParentView" BackgroundColor="White">
+        <RelativeLayout x:Name="LoaderCarrier" Opacity="0" BackgroundColor="Black"
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"
+                 
+                            >
+            <telerikPrimitives:RadBusyIndicator
+                                x:Name="LoginLoader"
+                                IsBusy="True"
+                                AnimationContentColor="White"
+                                AnimationType="Animation8"   
+                                Scale="2"
+                              RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-40}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-40}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=80}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=80}"
+                 
+                                               />
+
+            <Label Text="{Binding Instructions, Mode=TwoWay}"
+                                     HorizontalTextAlignment="Center" TextColor="White" FontSize="16"
+                                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=LoginLoader, Property=Y, Factor=1, Constant=100}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"
+                 
+                                               />
+        </RelativeLayout>
+
+
+        <CUST_Controls:TextField x:Name="UsernameView" Placeholder="Username" Hint="Username" Error="Invalid username or password"
+                                             Text="{Binding Username, Mode=TwoWay}" HasError="{Binding HasError, Mode=TwoWay}"
+                                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=40}"
+                                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.55, Constant=0}"                           
+                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"    
+                                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"
+                                            />
+        <CUST_Controls:SecureTextField x:Name="PasswordView" Placeholder="Password" Hint="Password" Error="Invalid username or password"
+                                                   SecureText="{Binding Password, Mode=TwoWay}" HasError="{Binding HasError, Mode=TwoWay}"
+                                                      RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=40}"
+                                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=UsernameView, Property=Y, Factor=1, Constant=50}"                           
+                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"    
+                                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"
+                                                 
+                                                   />
+
+        <StackLayout  BackgroundColor="White"
+                                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,ElementName=PasswordView, Property=Y, Factor=1, Constant=70}"                           
+                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.2, Constant=0}">
+
+            <Button Text="Login" TextColor="White" FontSize="Large" BackgroundColor="Orange" Margin="20,0,20,0" Command="{Binding ILogin, Mode=TwoWay}"/>
+            <StackLayout Orientation="Horizontal" Margin="20,0,20,0">
+
+                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                    <telerikPrimitives:RadCheckBox x:Name="checkbox" IsChecked="{Binding RememberMe, Mode=TwoWay}" CheckedColor="Orange"
+                                               UncheckedColor="Black"/>
+                    <Label x:Name="RememberMe" Text="Remember Me" VerticalTextAlignment="Center" HeightRequest="20" TextColor="Black" Font="15"/>
+                </StackLayout>
+
+                <Button x:Name="Registration" Text="Not a member? Sign up today!" TextColor="Blue" Font="12" BackgroundColor="White"
+                            HorizontalOptions="EndAndExpand" Margin="20,0,0,0" Command="{Binding IRegister, Mode=TwoWay}"/>
+            </StackLayout>
+
+            <StackLayout TranslationX="5" Orientation="Horizontal" HorizontalOptions="FillAndExpand" 
+                             VerticalOptions="FillAndExpand">
+                <Image Source="facebook.png" Aspect="AspectFit" WidthRequest="40" HeightRequest="40">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding IFacebook, Mode=TwoWay}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Source="linkedIn.png" Aspect="AspectFit" WidthRequest="40" HeightRequest="40">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ILinkedIn, Mode=TwoWay}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Source="twitter.png" Aspect="AspectFit" WidthRequest="40" HeightRequest="40">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ITwitter, Mode=TwoWay}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Source="google.png" Aspect="AspectFit" WidthRequest="40" HeightRequest="40">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding IGoogle, Mode=TwoWay}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
+        </StackLayout>
+    </RelativeLayout>
+</reactive:ReactiveContentPage>

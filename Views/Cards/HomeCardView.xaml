@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Cross.DataVault.Views.Cards.HomeCardView"
+          xmlns:Cards="clr-namespace:CardView;assembly=CardView"
+          >
+    <Cards:CardView HeightRequest="60" CardViewOutlineColor="Black" Margin="20" BackgroundColor="{StaticResource Key=CardBackground}" CardViewOutlineColorThickness="1.0" CardViewHasShadow="True">
+        <Cards:CardView.Content>
+            <RelativeLayout BackgroundColor="{StaticResource Key=CardBackground}">
+ 
+                <Label Text="{Binding Title, Mode=TwoWay}" TextColor="White" Font="28" FontFamily="{StaticResource Key=RoboticoLight}"
+                       HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=20}"
+                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.3, Constant=0}"
+                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8, Constant=0}" 
+                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=30}"    />
+            
+                <Image 
+                    Source="arrow_indicator.png"
+                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8, Constant=0}"
+                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.2, Constant=0}"
+                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=40}" 
+                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"
+                         />
+
+                <Button Command="{Binding IGoToPage, Mode=TwoWay}" BackgroundColor="Transparent"
+                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
+                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"
+                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"/>
+
+            </RelativeLayout>
+        </Cards:CardView.Content>
+    </Cards:CardView>
+    
+</ViewCell>

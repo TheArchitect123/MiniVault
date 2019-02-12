@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<reactive:ReactiveContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Cross.DataVault.Views.ContactsView"   
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             xmlns:CUST_Controls="clr-namespace:Cross.DataVault.Controls"
+             xmlns:navBar="clr-namespace:Cross.DataVault.Controls.Navigation"
+             xmlns:cell="clr-namespace:Cross.DataVault.Views.Cell.Secure"
+                       
+             xmlns:navCell="clr-namespace:Cross.DataVault.Views.Cell"
+             xmlns:Effects="clr-namespace:Cross.DataVault.Effects"
+             xmlns:cards="clr-namespace:Cross.DataVault.Views.Cards"
+                              xmlns:synfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                              
+                              xmlns:behaviours="clr-namespace:Behaviors;assembly=Behaviors"
+             
+                              xmlns:cr="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+                              xmlns:cr_Data="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:reactive="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+             xmlns:ViewModels="clr-namespace:Cross.DataVault.ViewModels"                         
+             x:TypeArguments="ViewModels:ContactsViewModel"
+              BackgroundColor="#EEEEEE">
+
+    <RelativeLayout x:Name="ParentView">
+        <RelativeLayout x:Name="ContactsLoader" Opacity="0" BackgroundColor="Black"
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}">
+            <telerikPrimitives:RadBusyIndicator
+                                x:Name="ContactIndicator"
+                                IsBusy="True"
+                                AnimationContentColor="White"
+                                AnimationType="Animation8"   
+                                Scale="2"
+                              RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-40}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-40}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=80}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=80}"
+                 
+                                               />
+
+            <Label Text="{Binding Instructions, Mode=TwoWay}"
+                                     HorizontalTextAlignment="Center" TextColor="White" FontSize="16"
+                                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=ContactIndicator, Property=Y, Factor=1, Constant=100}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"
+                 
+                                               />
+        </RelativeLayout>
+
+        <StackLayout Orientation="Vertical"   
+                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}">
+            <navBar:NavigationBack_NoSearch x:Name="NavBar"/>
+            <RelativeLayout x:Name="SubParentView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  BackgroundColor="#EEEEEE">
+                <ListView x:Name="ContactListView"
+                    SeparatorVisibility="None" ItemsSource="{Binding Contacts, Mode=TwoWay}" 
+                            ItemSelected="ContactListView_ItemSelected"  BackgroundColor="#EEEEEE"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"   
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"
+                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowHeight="80" IsPullToRefreshEnabled="True" RefreshCommand="{Binding IRefreshData, Mode=TwoWay}" 
+                          IsRefreshing="{Binding Refreshing, Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <cell:CoreContactsCellView/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Label x:Name="InitialInstructions" Opacity="1" BackgroundColor="#EEEEEE" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Text="No Contacts to show here..." Font="16"
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-75}"/>
+
+                <!--Buttons-->
+                <RelativeLayout x:Name="RefreshButton"
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8, Constant=-20}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75, Constant=0}"    
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=60}"    
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=60}">
+                    <RelativeLayout.YConstraint>
+                        <OnPlatform x:TypeArguments="Constraint" Android="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75, Constant=0}" 
+                                            iOS="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75, Constant=0}" />
+                    </RelativeLayout.YConstraint>
+                    
+                    <Button
+                        BackgroundColor="Black" BorderWidth="2" HorizontalOptions="FillAndExpand" 
+                             VerticalOptions="FillAndExpand" BorderColor="Silver"
+                             
+                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
+                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=0}"    
+                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"/>
+
+                    <Image Source="refresh.png" Aspect="AspectFit" Margin="10"          
+                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
+                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=0}"    
+                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding IOnRefresh, Mode=TwoWay}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <RelativeLayout.Effects>
+                        <Effects:ButtonRoundedEffect/>
+                    </RelativeLayout.Effects>
+                </RelativeLayout>
+            </RelativeLayout>
+        </StackLayout>
+    </RelativeLayout>
+</reactive:ReactiveContentPage>

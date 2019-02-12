@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Cross.DataVault.Views.SplashScreenView"
+            xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             BackgroundColor="Black">
+    <RelativeLayout x:Name="LoaderCarrier" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <telerikPrimitives:RadBusyIndicator
+                                x:Name="SplashLoader"
+                                IsBusy="True"
+                                AnimationContentColor="White"
+                                AnimationType="Animation8"   
+                                Scale="2" 
+                              RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-40}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-40}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=80}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=80}"
+                 
+                                               />
+
+        <Label Text="Welcome to Mini Vault"
+                                     HorizontalTextAlignment="Center" TextColor="White" FontSize="18"
+                                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=SplashLoader, Property=Y, Factor=1, Constant=100}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"
+                 
+                                               />
+    </RelativeLayout>
+</ContentPage>

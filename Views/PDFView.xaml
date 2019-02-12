@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<reactive:ReactiveContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Cross.DataVault.Views.PDFView"   xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             xmlns:CUST_Controls="clr-namespace:Cross.DataVault.Controls"
+             xmlns:navBar="clr-namespace:Cross.DataVault.Controls.Navigation"
+             xmlns:cell="clr-namespace:Cross.DataVault.Views.Cell"
+             xmlns:Effects="clr-namespace:Cross.DataVault.Effects"
+             xmlns:cards="clr-namespace:Cross.DataVault.Views.Cell.Secure"
+                      xmlns:navCell="clr-namespace:Cross.DataVault.Views.Cell"
+                               xmlns:synfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:reactive="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+             xmlns:ViewModels="clr-namespace:Cross.DataVault.ViewModels"                         
+             x:TypeArguments="ViewModels:PDFViewModel"
+              BackgroundColor="#EEEEEE">
+    <RelativeLayout>
+        <RelativeLayout x:Name="LoaderCarrier" Opacity="0" BackgroundColor="Black"
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}">
+            <telerikPrimitives:RadBusyIndicator
+                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=0}"
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=0}"                           
+                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=60}"    
+                            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=60}"                       
+                            IsBusy="True" AnimationType="Animation8" AnimationContentColor="White"/>
+
+            <Label Text="{Binding Instructions, Mode=TwoWay}"
+                                     HorizontalTextAlignment="Center" TextColor="White" FontSize="16"
+                                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=LoaderView, Property=Y, Factor=1, Constant=100}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"/>
+        </RelativeLayout>
+
+        <navBar:NavigationBack_NoSearch x:Name="NavBar"
+                                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=75}"
+                               />
+        <RelativeLayout x:Name="ParentView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  BackgroundColor="#EEEEEE">
+            <ListView x:Name="PDFsListView"
+                    SeparatorVisibility="None" ItemsSource="{Binding PDFs, Mode=TwoWay}" 
+                            ItemSelected="PDFsListView_ItemSelected"  BackgroundColor="#EEEEEE"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"   
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"
+                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowHeight="80" IsPullToRefreshEnabled="True" RefreshCommand="{Binding IRefreshData, Mode=TwoWay}" 
+                          IsRefreshing="{Binding Refreshing, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <cards:PDFCellView/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Label x:Name="InitialInstructions" Opacity="1" BackgroundColor="White" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Text="No PDFs to Show here..." Font="16"
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"/>
+
+
+            <!--Buttons-->
+            <RelativeLayout x:Name="RefreshButton" IsClippedToBounds="True"
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8, Constant=-20}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.8, Constant=0}"    
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=60}"    
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=60}"
+                    BackgroundColor="Black">
+
+                <Image Source="refresh.png" Aspect="AspectFit" Margin="10"          
+                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
+                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=0}"    
+                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"/>
+
+                <Button
+                        Command="{Binding IRefreshData, Mode=TwoWay}"
+                        BackgroundColor="Transparent" BorderWidth="0.2" HorizontalOptions="FillAndExpand" 
+                             VerticalOptions="FillAndExpand" BorderColor="Silver"
+                             
+                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
+                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=0}"    
+                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"/>
+                <RelativeLayout.Effects>
+                    <Effects:ButtonRoundedEffect/>
+                </RelativeLayout.Effects>
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</reactive:ReactiveContentPage>

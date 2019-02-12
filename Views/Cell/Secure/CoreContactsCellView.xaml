@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Cross.DataVault.Views.Cell.Secure.CoreContactsCellView"
+          xmlns:ui="clr-namespace:Vapolia.Lib.Ui;assembly=XamarinFormsGesture"
+          xmlns:Effect="clr-namespace:Cross.DataVault.Effects" >
+    <ViewCell.ContextActions>
+        <MenuItem Text="Delete" IsDestructive="True" Command="{Binding IDelete, Mode=TwoWay}" />
+        <MenuItem Text="View" Command="{Binding IViewContact, Mode=TwoWay}" />
+    </ViewCell.ContextActions>
+    
+    <RelativeLayout IsEnabled="True">
+        <Label x:Name="Contact_DisplayNameView" Text="{Binding Display_Name, Mode=TwoWay}" Font="16" TextColor="Black" 
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=10}"
+                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=5}"
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7, Constant=-10}"
+                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=20}"/>
+
+        <Label x:Name="Contact_NumberView" Text="{Binding Contact_Number, Mode=TwoWay}" BackgroundColor="#EEEEEE" TextColor="Blue" Font="10" 
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=10}"
+                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=Contact_DisplayNameView, Property=Height, Factor=1, Constant=10}"
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7, Constant=-10}"
+                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=20}"
+               />
+
+        <Label x:Name="EmailView" BackgroundColor="#EEEEEE" Text="{Binding Email, Mode=TwoWay}" TextColor="Blue" Font="10"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=10}"
+                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=Contact_NumberView, Property=Y, Factor=1, Constant=15}"
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7, Constant=-10}"
+                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=20}"
+                />
+
+        <Label x:Name="DateView"
+             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7, Constant=5}"
+                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=15}"
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.3, Constant=0}"
+                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=20}"
+            Text="{Binding Date, Mode=TwoWay}" Font="14" TextColor="DarkGray"/>
+
+        <Label Text="{Binding Time, Mode=TwoWay}" Font="12" TextColor="Gray"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7, Constant=5}"
+                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=DateView, Property=Height, Factor=1, Constant=20}"
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.3, Constant=0}"
+                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=30}"
+               />
+
+        <!--<Button Command="{Binding IViewContact, Mode=TwoWay}" BackgroundColor="Transparent"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
+                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=0}"
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"
+                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"/>-->
+    </RelativeLayout>
+</ViewCell>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Cross.DataVault.Views.Cell.Secure.DocumentsCellView">
+    <ViewCell.ContextActions>
+        <MenuItem Text="Delete" IsDestructive="True" Command="{Binding IDelete, Mode=TwoWay}" />
+        <MenuItem Text="View" Command="{Binding IViewContact, Mode=TwoWay}" />
+    </ViewCell.ContextActions>
+    
+    <RelativeLayout>
+        <StackLayout Orientation="Vertical"
+                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=10}"
+                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=10}"
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8, Constant=-10}"
+                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=20}">
+            <Label Text="{Binding FileName, Mode=TwoWay}" Font="16" TextColor="Black"/>
+            <Label Text="{Binding Description, Mode=TwoWay}" Font="14" TextColor="Gray"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical"
+                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8, Constant=5}"
+                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=10}"
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=60}"
+                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}">
+            <Label Text="{Binding Date, Mode=TwoWay}" Font="14" TextColor="DarkGray"/>
+            <Label Text="{Binding Time, Mode=TwoWay}" Font="12" TextColor="Gray"/>
+        </StackLayout>
+
+        <!--<Button Command="{Binding IOpenPassword, Mode=TwoWay}" BackgroundColor="Transparent"
+                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
+                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"
+                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"/>-->
+
+    </RelativeLayout>
+</ViewCell>

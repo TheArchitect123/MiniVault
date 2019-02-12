@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<reactive:ReactiveContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Cross.DataVault.Views.ContactsDetailView"
+                xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             xmlns:CUST_Controls="clr-namespace:Cross.DataVault.Controls"
+             xmlns:navBar="clr-namespace:Cross.DataVault.Controls.Navigation"
+             xmlns:cell="clr-namespace:Cross.DataVault.Views.Cell.Secure"
+                             
+                              xmlns:navCell="clr-namespace:Cross.DataVault.Views.Cell"
+             xmlns:Effects="clr-namespace:Cross.DataVault.Effects"
+             xmlns:cards="clr-namespace:Cross.DataVault.Views.Cards"
+             
+                              xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+                              xmlns:telerikDataCommands="clr-namespace:Telerik.XamarinForms.DataControls.ListView.Commands;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:reactive="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+             xmlns:ViewModels="clr-namespace:Cross.DataVault.ViewModels"                         
+             x:TypeArguments="ViewModels:ContactsDetailViewModel"
+              BackgroundColor="#EEEEEE">
+    <RelativeLayout x:Name="ParentView">
+        <RelativeLayout x:Name="ContactLoader" Opacity="0" BackgroundColor="Black"
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}">
+            <telerikPrimitives:RadBusyIndicator
+                                x:Name="ContactIndicator"
+                                IsBusy="True"
+                                AnimationContentColor="White"
+                                AnimationType="Animation8"   
+                                Scale="2"
+                              RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-40}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-40}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=80}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=80}"
+                 
+                                               />
+
+            <Label Text="{Binding Instructions, Mode=TwoWay}"
+                                     HorizontalTextAlignment="Center" TextColor="White" FontSize="16"
+                                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=ContactIndicator, Property=Y, Factor=1, Constant=100}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"
+                 
+                                               />
+        </RelativeLayout>
+
+        <StackLayout Orientation="Vertical"   
+                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}">
+            <navBar:NavigationBack_NoSearch x:Name="NavBar"/>
+            <ScrollView x:Name="SubParentView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  BackgroundColor="#EEEEEE">
+                <RelativeLayout>
+                    <!--Contact Name-->
+                    <Label  x:Name="ContactSuperNameView"
+                        Text="Full Name"
+                        TextColor="Gray"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=10}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"/>
+
+                    <Label x:Name="ContactNameContView"
+                       Text="{Binding Display_Name, Mode=TwoWay}"
+                        TextColor="Black"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=10}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=ContactSuperNameView, Property=Y, Factor=1, Constant=20}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"/>
+
+                    <Label  x:Name="MobileSuperView"
+                        Text="Mobile"
+                        TextColor="Gray"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=10}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=ContactNameContView, Property=Y, Factor=1, Constant=40}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=20}"/>
+
+                    <Button x:Name="MobileContView"
+                        Text="{Binding Mobile, Mode=TwoWay}" Command="{Binding IMobile, Mode=TwoWay}"
+                        TextColor="Blue" BackgroundColor="#EEEEEE"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=10}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=MobileSuperView, Property=Y, Factor=1, Constant=30}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.3, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=20}"/>
+
+                    <Label x:Name="EmailSuperView"
+                        Text="Email"
+                        TextColor="Gray"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=10}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=MobileContView, Property=Y, Factor=1, Constant=30}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"/>
+
+                    <Button x:Name="EmailContView" Command="{Binding IEmail, Mode=TwoWay}"
+                        Text="{Binding Email, Mode=TwoWay}"
+                        TextColor="Blue" BackgroundColor="#EEEEEE"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=10}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=EmailSuperView, Property=Y, Factor=1, Constant=50}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"     
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=20}"/>
+                </RelativeLayout>
+            </ScrollView>
+        </StackLayout>
+    </RelativeLayout>
+</reactive:ReactiveContentPage>

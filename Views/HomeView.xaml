@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<reactive:ReactiveContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Cross.DataVault.Views.HomeView"
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             xmlns:CUST_Controls="clr-namespace:Cross.DataVault.Controls"
+             xmlns:navBar="clr-namespace:Cross.DataVault.Controls.Navigation"
+             xmlns:cell="clr-namespace:Cross.DataVault.Views.Cell"
+             xmlns:Effects="clr-namespace:Cross.DataVault.Effects"
+             xmlns:cards="clr-namespace:Cross.DataVault.Views.Cards"
+             
+             xmlns:reactive="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+             xmlns:ViewModels="clr-namespace:Cross.DataVault.ViewModels"                         
+             x:TypeArguments="ViewModels:HomeViewModel"
+             BackgroundColor="#EEEEEE">
+    <telerikPrimitives:RadSideDrawer x:Name="drawer" IsOpen="{Binding IsOpenDrawer, Mode=TwoWay}">
+        <telerikPrimitives:RadSideDrawer.MainContent>
+
+            <RelativeLayout x:Name="ParentView">
+                <RelativeLayout x:Name="LoaderView" Opacity="0" BackgroundColor="Black"
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}">
+
+                    <telerikPrimitives:RadBusyIndicator
+                                x:Name="HomeLoader"
+                                IsBusy="True"
+                                AnimationContentColor="White"
+                                AnimationType="Animation8"   
+                                Scale="2"
+                              RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-40}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-40}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=80}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=80}"
+                 
+                                               />
+
+                    <Label Text="{Binding Instructions, Mode=TwoWay}"
+                                     HorizontalTextAlignment="Center" TextColor="White" FontSize="16"
+                                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=HomeLoader, Property=Y, Factor=1, Constant=100}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"
+                 
+                                               />
+                </RelativeLayout>
+
+                <StackLayout Orientation="Vertical"   
+                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}">
+                    <navBar:NavigationBar x:Name="NavBar"/>
+
+                    <RelativeLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#EEEEEE">
+                        <ListView 
+                        SeparatorVisibility="None"  
+                        ItemsSource="{Binding Cards, Mode=TwoWay}" ItemSelected="ListView_ItemSelected" BackgroundColor="#EEEEEE"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}" 
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.95, Constant=0}"
+                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowHeight="120" IsPullToRefreshEnabled="True" RefreshCommand="{Binding IOnRefresh, Mode=TwoWay}" 
+                            IsRefreshing="{Binding Refreshing, Mode=TwoWay}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <cards:HomeCardView/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <RelativeLayout x:Name="RefreshButton"
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8, Constant=-20}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75, Constant=0}"    
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=60}"    
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=60}">
+
+                            <RelativeLayout.YConstraint>
+                                <OnPlatform x:TypeArguments="Constraint" Android="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75, Constant=0}" 
+                                            iOS="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75, Constant=0}" />
+                            </RelativeLayout.YConstraint>
+
+                            <Button
+                        BackgroundColor="Black" BorderWidth="2" HorizontalOptions="FillAndExpand" 
+                             VerticalOptions="FillAndExpand" BorderColor="Silver"
+                             
+                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
+                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=0}"    
+                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"/>
+
+                            <Image Source="refresh.png" Aspect="AspectFit" Margin="10" IsEnabled="True"        
+                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
+                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=0}"    
+                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding IOnRefresh, Mode=TwoWay}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <RelativeLayout.Effects>
+                                <Effects:ButtonRoundedEffect/>
+                            </RelativeLayout.Effects>
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </StackLayout>
+            </RelativeLayout>
+        </telerikPrimitives:RadSideDrawer.MainContent>
+        <telerikPrimitives:RadSideDrawer.DrawerContent>
+            <RelativeLayout x:Name="HomeNavView" BackgroundColor="White"  
+                         HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <RelativeLayout x:Name="TopArtworkView"
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"     
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=0}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.20, Constant=0}"
+                    HorizontalOptions="FillAndExpand" BackgroundColor="White">
+                    <!--<Image x:Name="HomeNavBackground" Source="drawerbackground.jpg" Aspect="AspectFill" 
+                              RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Constant=0}"/>-->
+
+                    <ContentView
+                              RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"     
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=0}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"
+                  BackgroundColor="Orange"/>
+
+                    <Label  
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=20}" HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-40}"
+                        BackgroundColor="{StaticResource Key=CardBackground}" Text="{Binding Initials, Mode=TwoWay}" Font="22"
+                        TextColor="White" WidthRequest="50" HeightRequest="50">
+                        <Label.Effects>
+                            <Effects:CardLabelEffect/>
+                        </Label.Effects>
+                    </Label>
+
+                    <Image x:Name="AvatarPhoto" Aspect="AspectFill"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=20}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-40}"
+                        WidthRequest="50" HeightRequest="50">
+                    </Image>
+
+                    <StackLayout Orientation="Vertical"
+                                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=20}"
+                                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=20}"
+                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Constant=-20}">
+                        <Label x:Name="Name_Drawer"
+                               HeightRequest="20"
+                               Text="{Binding SiteUserName, Mode=TwoWay}" TextColor="White" Font="12" HorizontalOptions="FillAndExpand"/>
+
+                        <Label x:Name="Email_Drawer"
+                        HeightRequest="20" Font="12" TranslationY="-5"
+                        Text="{Binding SiteUserEmail, Mode=TwoWay}" TextColor="White" HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+                </RelativeLayout>
+
+                <ListView
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"  ItemSelected="ListView_ItemSelected"    
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=TopArtworkView, Property=Height, Factor=1, Constant=0.8}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}" SeparatorVisibility="None"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.8, Constant=0}"
+                    BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowHeight="65" ItemsSource="{Binding NavigationSource, Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <cell:NavigationCellView/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </RelativeLayout>
+        </telerikPrimitives:RadSideDrawer.DrawerContent>
+    </telerikPrimitives:RadSideDrawer>
+</reactive:ReactiveContentPage>

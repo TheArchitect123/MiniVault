@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<reactive:ReactiveContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             x:Class="Cross.DataVault.Views.RegisterView"
+                              xmlns:ViewModels="clr-namespace:Cross.DataVault.ViewModels"
+                              x:TypeArguments="ViewModels:RegisterViewModel"
+             xmlns:controls="clr-namespace:Cross.DataVault.Controls"
+             xmlns:navBar="clr-namespace:Cross.DataVault.Controls.Navigation"
+             xmlns:Cards="clr-namespace:CardView;assembly=CardView"
+                       xmlns:reactive="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+             BackgroundColor="White">
+    <RelativeLayout x:Name="ParentView">
+
+        <RelativeLayout x:Name="LoaderCarrier" Opacity="0" BackgroundColor="Black"
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"
+                 
+                            >
+            <telerikPrimitives:RadBusyIndicator
+                                x:Name="LoaderView"
+                                IsBusy="True"
+                                AnimationContentColor="White"
+                                AnimationType="Animation8"   
+                                Scale="2"
+                                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-40}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-40}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=80}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=80}"
+                 
+                                               />
+
+            <Label Text="{Binding Instructions, Mode=TwoWay}"
+                                     HorizontalTextAlignment="Center" TextColor="White" FontSize="16"
+                                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=LoaderView, Property=Y, Factor=1, Constant=100}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"
+                 
+                                               />
+        </RelativeLayout>
+
+        <navBar:NavigationBack_NoSearch x:Name="NavBar"
+                                                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=75}"
+                                        />
+
+        <RelativeLayout
+                                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=NavBar, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}">
+
+            <Image x:Name="AvatarView" BackgroundColor="Transparent"  Aspect="AspectFit"
+                        HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" Source="{Binding Avatar, Mode=TwoWay}"
+                       
+                          RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-60}"
+                                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.2, Constant=0}"                           
+                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=120}"    
+                                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=120}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding IAvatar, Mode=TwoWay}"/>
+                </Image.GestureRecognizers>
+            </Image>
+
+            <controls:TextField x:Name="UsernameView" Placeholder="Username (Email Address)" Hint="Username" Error="Invalid username or password"
+                                             Text="{Binding Username, Mode=TwoWay}" HasError="{Binding HasError, Mode=TwoWay}" HeightRequest="40"
+                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=40}"
+                                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=AvatarView, Property=Y, Factor=1, Constant=140}"                           
+                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"    
+                                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"
+
+
+                    />
+            <controls:SecureTextField x:Name="PasswordView" Placeholder="Password" Hint="Password" Error="{Binding ErrorMessage, Mode=TwoWay}"
+                                                   SecureText="{Binding Password, Mode=TwoWay}" HasError="{Binding HasError, Mode=TwoWay}"
+                                                   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=40}"
+                                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=UsernameView, Property=Y, Factor=1, Constant=50}"                           
+                                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"    
+                                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"
+
+                                          />
+
+            <controls:SecureTextField x:Name="ConfirmPasswordView" Placeholder="Confirm Password" Hint="Confirm Password" Error="{Binding ErrorMessage, Mode=TwoWay}"
+                                                   SecureText="{Binding ConfirmPassword, Mode=TwoWay}" HasError="{Binding HasError, Mode=TwoWay}" HeightRequest="40"
+                                                   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=40}"
+                                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=PasswordView, Property=Y, Factor=1, Constant=50}"                           
+                                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"    
+                                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"
+
+                                          />
+
+            <controls:TextField x:Name="FirstNameView" Placeholder="First Name" Hint="First Name" Error="Invalid first name"
+                                             Text="{Binding FirstName, Mode=TwoWay}" HasError="{Binding HasError, Mode=TwoWay}" HeightRequest="40"
+                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=40}"
+                                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=ConfirmPasswordView,Property=Y, Factor=1, Constant=50}"                           
+                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"    
+                                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"
+                    />
+
+            <controls:TextField x:Name="LastNameView" Placeholder="Last Name" Hint="Last Name" Error="Invalid last name"
+                                             Text="{Binding LastName, Mode=TwoWay}" HasError="{Binding HasError, Mode=TwoWay}" HeightRequest="40"
+                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=40}"
+                                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=FirstNameView,Property=Y, Factor=1, Constant=50}"                           
+                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"    
+                                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"
+
+                    />
+
+
+            <Button x:Name="RegisterButton" Text="Register" TextColor="White" FontSize="Large" BackgroundColor="Orange"
+                            Margin="20,0,20,0" Command="{Binding IRegister, Mode=TwoWay}" HeightRequest="40"
+                              RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=20}"
+                                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=LastNameView, Property=Y, Factor=1, Constant=80}"                           
+                                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-40}"    
+                                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=40}"
+                        />
+        </RelativeLayout>
+    </RelativeLayout>
+</reactive:ReactiveContentPage>

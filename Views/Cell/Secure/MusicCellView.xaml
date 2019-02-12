@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Cross.DataVault.Views.Cell.Secure.MusicCellView">
+    <ViewCell.ContextActions>
+        <MenuItem Text="Delete" IsDestructive="True" Command="{Binding IDelete, Mode=TwoWay}" />
+        <MenuItem Text="View" Command="{Binding IViewContact, Mode=TwoWay}" />
+    </ViewCell.ContextActions>
+    
+    <RelativeLayout x:Name="MusicParent" IsEnabled="True">
+        <StackLayout Orientation="Vertical"
+                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=10}"
+                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=10}"
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7, Constant=-10}"
+                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=20}">
+            <Label Text="{Binding Music_Name, Mode=TwoWay}" Font="16" TextColor="Black"/>
+            <Label Text="{Binding Album_Title, Mode=TwoWay}" Font="14" TextColor="Gray"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical"
+                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7, Constant=5}"
+                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=10}"
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0.3}"
+                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}">
+            <Label Text="{Binding ReleaseDate, Mode=TwoWay}" Font="14" TextColor="DarkGray"/>
+            <Label Text="{Binding Duration, Mode=TwoWay}" Font="12" TextColor="Gray"/>
+        </StackLayout>
+    </RelativeLayout>
+</ViewCell>

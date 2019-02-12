@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Cross.DataVault.Views.PhotoViewerView"
+                 xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             xmlns:CUST_Controls="clr-namespace:Cross.DataVault.Controls"
+             xmlns:navBar="clr-namespace:Cross.DataVault.Controls.Navigation"
+             xmlns:cell="clr-namespace:Cross.DataVault.Views.Cell.Secure"
+                       
+             xmlns:navCell="clr-namespace:Cross.DataVault.Views.Cell"
+             xmlns:Effects="clr-namespace:Cross.DataVault.Effects"
+             xmlns:cards="clr-namespace:Cross.DataVault.Views.Cards"
+                              
+             xmlns:behaviours="clr-namespace:Behaviors;assembly=Behaviors"
+             xmlns:cr="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:cr_Data="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:reactive="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms" 
+             BackgroundColor="Black">
+    <RelativeLayout x:Name="ParentView">
+
+        <navBar:NavigationBack_NoSearch x:Name="NavBar"
+                                  RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=75}"/>
+
+
+        <Image Source="{Binding Photo, Mode=TwoWay}" Aspect="AspectFill"
+                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=NavBar, Property=Height, Factor=1, Constant=0}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=0}"    
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-75}">
+            <Image.GestureRecognizers>
+                <PinchGestureRecognizer PinchUpdated="PinchGestureRecognizer_PinchUpdated"/>
+            </Image.GestureRecognizers>
+        </Image>
+    </RelativeLayout>
+</ContentPage>
